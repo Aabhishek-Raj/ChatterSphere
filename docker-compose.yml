@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: nextjs-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: nextjs_db
+      MYSQL_USER: nextjs_user
+      MYSQL_PASSWORD: userpassword
+    ports:
+      - '3307:3306'
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - nextjs-network
+
+  shadow-mysql:
+    image: mysql:8.0
+    container_name: nextjs-shadow-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: shadow_db
+      MYSQL_USER: shadow_user
+      MYSQL_PASSWORD: shadowpassword
+    ports:
+      - '3308:3306'
+    volumes:
+      - shadow_mysql_data:/var/lib/mysql
+    networks:
+      - nextjs-network
+
+volumes:
+  mysql_data:
+  shadow_mysql_data:
+
+networks:
+  nextjs-network:
