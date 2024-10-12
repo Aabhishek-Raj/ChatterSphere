@@ -4,8 +4,8 @@ import { redirect } from 'next/navigation';
 import { db } from '@/lib/db';
 import { Separator } from '@/components/ui/separator';
 import { NavigationItem } from '../NavigationItem';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { ModeToggle } from '@/components/mode-toggle';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const NavigationSidebar = async () => {
   const profile = await initialProfile();
@@ -26,7 +26,7 @@ export const NavigationSidebar = async () => {
   console.log(servers, 'serveer');
 
   return (
-    <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] py-3">
+    <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
       <NavigationAction />
       <Separator className="h-[2px] bg-zinc-500 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
       <ScrollArea className="flex-1 w-full">

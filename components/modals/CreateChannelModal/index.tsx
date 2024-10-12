@@ -1,17 +1,15 @@
 'use client';
 
 import * as z from 'zod';
-import qs from 'query-string';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { DialogTitle } from '@radix-ui/react-dialog';
 
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from '@/components/ui/dialog';
 import {
   Form,
@@ -30,11 +28,11 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useModal } from '@/hooks/use-modal-store';
 import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
 import { ChannelType } from '@prisma/client';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
   name: z
@@ -49,21 +47,30 @@ const formSchema = z.object({
 });
 
 export const CreateChannelModal = () => {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
   const params = useParams();
 
   const axiosPrivate = useAxiosPrivate();
 
   const isModalOpen = isOpen && type === 'createChannel';
+  const { channelType } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
-      type: ChannelType.TEXT,
+      type: channelType || ChannelType.TEXT,
     },
   });
+
+  useEffect(() => {
+    if (channelType) {
+      form.setValue('type', channelType);
+    } else {
+      form.setValue('type', ChannelType.TEXT);
+    }
+  }, [channelType, form]);
 
   const isLoading = form.formState.isSubmitting;
 

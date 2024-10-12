@@ -33,5 +33,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/((?!register|login|refresh|logout).*)'],
+  matcher: ['/api/((?!register|login|refresh|logout|socket).*)'],
 };

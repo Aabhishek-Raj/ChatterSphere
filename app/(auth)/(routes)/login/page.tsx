@@ -1,11 +1,8 @@
 'use client';
 
 import * as z from 'zod';
-import axios from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { DialogTitle } from '@radix-ui/react-dialog';
-import { signup } from '@/app/actions/auth';
 
 import {
   Form,

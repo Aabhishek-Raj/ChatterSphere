@@ -1,5 +1,4 @@
 import { initialProfile } from '@/app/actions/initial-profile';
-import { currentProfile } from '@/lib/current-profile';
 import { db } from '@/lib/db';
 import { MemberRole } from '@prisma/client';
 import { NextResponse } from 'next/server';
