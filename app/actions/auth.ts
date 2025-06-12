@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { cookies } from "next/headers";
 import apiService from '../services/apiServices';
 
-interface params {
+interface params { 
   email: string,
   password: string
 }
