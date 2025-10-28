@@ -1,9 +1,9 @@
-import RequireAuth from '@/middleware/requireAuth';
+import RequireAuth from '@/middleware/requireAuth'
 
 export default function DashboardLayout({
   children, // will be a page or nested layout
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <RequireAuth>
@@ -15,5 +15,5 @@ export default function DashboardLayout({
         {children}
       </section>
     </RequireAuth>
-  );
+  )
 }

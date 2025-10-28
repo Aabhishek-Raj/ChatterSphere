@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -19,13 +19,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useModal } from '@/hooks/use-modal-store';
-import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/use-modal-store'
+import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -34,15 +34,15 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, {
     message: 'server Image is required',
   }),
-});
+})
 
 export const CreateModalServer = () => {
-  const { isOpen, onClose, type } = useModal();
-  const router = useRouter();
+  const { isOpen, onClose, type } = useModal()
+  const router = useRouter()
 
-  const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate()
 
-  const isModalOpen = isOpen && type === 'createServer';
+  const isModalOpen = isOpen && type === 'createServer'
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -50,25 +50,25 @@ export const CreateModalServer = () => {
       name: '',
       imageUrl: '',
     },
-  });
+  })
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axiosPrivate.post('/api/servers', values);
-      form.reset();
-      router.refresh();
-      onClose();
+      await axiosPrivate.post('/api/servers', values)
+      form.reset()
+      router.refresh()
+      onClose()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleClose = () => {
-    form.reset();
-    onClose();
-  };
+    form.reset()
+    onClose()
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -136,5 +136,5 @@ export const CreateModalServer = () => {
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

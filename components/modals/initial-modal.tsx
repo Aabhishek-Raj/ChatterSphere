@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Dialog,
@@ -11,7 +11,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -19,12 +19,12 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -33,17 +33,17 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, {
     message: 'server Image is required',
   }),
-});
+})
 
 export const InitialModal = () => {
-  const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter()
+  const [isMounted, setIsMounted] = useState(false)
 
-  const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate()
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setIsMounted(true)
+  }, [])
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -51,23 +51,23 @@ export const InitialModal = () => {
       name: '',
       imageUrl: '',
     },
-  });
+  })
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axiosPrivate.post('api/servers', values);
-      form.reset();
-      router.refresh();
-      window.location.reload();
+      await axiosPrivate.post('api/servers', values)
+      form.reset()
+      router.refresh()
+      window.location.reload()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   if (!isMounted) {
-    return null;
+    return null
   }
 
   return (
@@ -136,5 +136,5 @@ export const InitialModal = () => {
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

@@ -1,21 +1,21 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { db } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { db } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 interface InviteCodePageProps {
   params: {
-    inviteCode: string;
-  };
+    inviteCode: string
+  }
 }
 
 const InviteCodePage = async ({ params }: InviteCodePageProps) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
 
   if (!profile) {
-    return redirect('/login');
+    return redirect('/login')
   }
   if (!params.inviteCode) {
-    return redirect('/');
+    return redirect('/')
   }
   const existingServer = await db.server.findFirst({
     where: {
@@ -26,10 +26,10 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
         },
       },
     },
-  });
+  })
 
   if (existingServer) {
-    return redirect(`/chat/servers/${existingServer.id}`);
+    return redirect(`/chat/servers/${existingServer.id}`)
   }
   const server = await db.server.update({
     where: {
@@ -44,11 +44,11 @@ const InviteCodePage = async ({ params }: InviteCodePageProps) => {
         ],
       },
     },
-  });
+  })
   if (server) {
-    return redirect(`/chat/servers/${server.id}`);
+    return redirect(`/chat/servers/${server.id}`)
   }
-  return null;
-};
+  return null
+}
 
-export default InviteCodePage;
+export default InviteCodePage

@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Dialog,
@@ -10,7 +10,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -18,21 +18,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
+} from '@/components/ui/form'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useParams, useRouter } from 'next/navigation';
-import { useModal } from '@/hooks/use-modal-store';
-import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
-import { ChannelType } from '@prisma/client';
-import { useEffect } from 'react';
+} from '@/components/ui/select'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useParams, useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/use-modal-store'
+import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
+import { ChannelType } from '@prisma/client'
+import { useEffect } from 'react'
 
 const formSchema = z.object({
   name: z
@@ -44,17 +44,17 @@ const formSchema = z.object({
       message: "Channel name cannot be 'general'",
     }),
   type: z.nativeEnum(ChannelType),
-});
+})
 
 export const CreateChannelModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
-  const params = useParams();
+  const { isOpen, onClose, type, data } = useModal()
+  const router = useRouter()
+  const params = useParams()
 
-  const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate()
 
-  const isModalOpen = isOpen && type === 'createChannel';
-  const { channelType } = data;
+  const isModalOpen = isOpen && type === 'createChannel'
+  const { channelType } = data
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -62,33 +62,33 @@ export const CreateChannelModal = () => {
       name: '',
       type: channelType || ChannelType.TEXT,
     },
-  });
+  })
 
   useEffect(() => {
     if (channelType) {
-      form.setValue('type', channelType);
+      form.setValue('type', channelType)
     } else {
-      form.setValue('type', ChannelType.TEXT);
+      form.setValue('type', ChannelType.TEXT)
     }
-  }, [channelType, form]);
+  }, [channelType, form])
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axiosPrivate.post(`/api/channels?serverId=${params.serverId}`, values);
-      form.reset();
-      router.refresh();
-      onClose();
+      await axiosPrivate.post(`/api/channels?serverId=${params.serverId}`, values)
+      form.reset()
+      router.refresh()
+      onClose()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleClose = () => {
-    form.reset();
-    onClose();
-  };
+    form.reset()
+    onClose()
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -162,5 +162,5 @@ export const CreateChannelModal = () => {
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

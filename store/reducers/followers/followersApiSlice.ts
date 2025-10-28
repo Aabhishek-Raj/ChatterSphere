@@ -1,4 +1,4 @@
-import { apiSlice } from '@/store/api/apiSlice';
+import { apiSlice } from '@/store/api/apiSlice'
 
 export const followersApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -7,6 +7,6 @@ export const followersApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
   }),
-});
+})
 
-export const { useGetFollowersQuery } = followersApiSlice;
+export const { useGetFollowersQuery } = followersApiSlice

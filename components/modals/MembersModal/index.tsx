@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import {
   Dialog,
@@ -7,7 +7,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,12 +18,12 @@ import {
   DropdownMenuSubContent,
   DropdownMenuTrigger,
   DropdownMenuSubTrigger,
-} from '@/components/ui/dropdown-menu';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { UserAvatar } from '@/components/UserAvatar';
+} from '@/components/ui/dropdown-menu'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { UserAvatar } from '@/components/UserAvatar'
 
-import { useModal } from '@/hooks/use-modal-store';
-import { ServerWithMembersWithProfile } from '@/types';
+import { useModal } from '@/hooks/use-modal-store'
+import { ServerWithMembersWithProfile } from '@/types'
 import {
   Check,
   Gavel,
@@ -33,22 +33,22 @@ import {
   ShieldAlert,
   ShieldCheck,
   ShieldQuestion,
-} from 'lucide-react';
-import { useState } from 'react';
+} from 'lucide-react'
+import { useState } from 'react'
 
 const roleIconMap = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
   ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500 " />,
-};
+}
 
 export const MembersModal = () => {
-  const { isOpen, onOpen, onClose, type, data } = useModal();
+  const { isOpen, onOpen, onClose, type, data } = useModal()
 
-  const [loadingId, setLoadingId] = useState('');
+  const [loadingId, setLoadingId] = useState('')
 
-  const isModalOpen = isOpen && type === 'members';
-  const { server } = data as { server: ServerWithMembersWithProfile };
+  const isModalOpen = isOpen && type === 'members'
+  const { server } = data as { server: ServerWithMembersWithProfile }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -119,5 +119,5 @@ export const MembersModal = () => {
         </ScrollArea>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

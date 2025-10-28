@@ -1,38 +1,38 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { ChatHeader } from '@/components/chat/chatHeader';
-import { ChatInput } from '@/components/chat/ChatInput/page';
-import { ChatMessages } from '@/components/chat/ChatMessages';
-import { db } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { ChatHeader } from '@/components/chat/chatHeader'
+import { ChatInput } from '@/components/chat/ChatInput/page'
+import { ChatMessages } from '@/components/chat/ChatMessages'
+import { db } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 interface ChannelIdPageProps {
   params: Promise<{
-    serverId: string;
-    channelId: string;
-}>;
+    serverId: string
+    channelId: string
+  }>
 }
 
 const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
 
-  if (!profile) return redirect('/login');
+  if (!profile) return redirect('/login')
 
   const { channelId, serverId } = await params
   const channel = await db.channel.findUnique({
     where: {
       id: channelId,
     },
-  });
+  })
 
   const member = await db.member.findFirst({
     where: {
       serverId: serverId,
       profileId: profile?.id,
     },
-  });
+  })
 
   if (!channel || !member) {
-    redirect(`/`);
+    redirect(`/`)
   }
 
   return (
@@ -64,7 +64,7 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ChannelIdPage;
+export default ChannelIdPage

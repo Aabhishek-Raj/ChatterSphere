@@ -1,21 +1,21 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { ChatHeader } from '@/components/chat/chatHeader';
-import { getOrCreateConversation } from '@/lib/converstaion';
-import { db } from '@/lib/db';
-import { redirect } from 'next/navigation';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { ChatHeader } from '@/components/chat/chatHeader'
+import { getOrCreateConversation } from '@/lib/converstaion'
+import { db } from '@/lib/db'
+import { redirect } from 'next/navigation'
 
 interface MembersIdPageProps {
   params: {
-    memberId: string;
-    serverId: string;
-  };
+    memberId: string
+    serverId: string
+  }
 }
 
 const MembersIdPage = async ({ params }: MembersIdPageProps) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
 
   if (!profile) {
-    return redirect('login');
+    return redirect('login')
   }
 
   const currentMember = await db.member.findFirst({
@@ -26,21 +26,21 @@ const MembersIdPage = async ({ params }: MembersIdPageProps) => {
     include: {
       profile: true,
     },
-  });
+  })
 
   if (!currentMember) {
-    return redirect('/');
+    return redirect('/')
   }
 
-  const conversation = await getOrCreateConversation(currentMember.id, params.memberId);
+  const conversation = await getOrCreateConversation(currentMember.id, params.memberId)
 
   if (!conversation) {
-    return redirect(`/chat/servers/${params.serverId}`);
+    return redirect(`/chat/servers/${params.serverId}`)
   }
 
-  const { memberOne, memberTwo } = conversation;
+  const { memberOne, memberTwo } = conversation
 
-  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne;
+  const otherMember = memberOne.profileId === profile.id ? memberTwo : memberOne
 
   return (
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
@@ -51,7 +51,7 @@ const MembersIdPage = async ({ params }: MembersIdPageProps) => {
         type="conversation"
       />
     </div>
-  );
-};
+  )
+}
 
-export default MembersIdPage;
+export default MembersIdPage

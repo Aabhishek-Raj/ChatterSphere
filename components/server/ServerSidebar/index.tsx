@@ -1,37 +1,37 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { db } from '@/lib/db';
-import { ChannelType, MemberRole } from '@prisma/client';
-import { redirect } from 'next/navigation';
-import { ServerHeader } from '../ServerHeader';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ServerSearch } from '../ServerSearch';
-import { Hash, Mic, Shield, ShieldAlert, ShieldCheck, Video } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import { ServerSection } from '../ServerSection';
-import { SeverChannel } from '../ServerChannel';
-import { ServerMember } from '../ServerMember/intex';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { db } from '@/lib/db'
+import { ChannelType, MemberRole } from '@prisma/client'
+import { redirect } from 'next/navigation'
+import { ServerHeader } from '../ServerHeader'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { ServerSearch } from '../ServerSearch'
+import { Hash, Mic, Shield, ShieldAlert, ShieldCheck, Video } from 'lucide-react'
+import { Separator } from '@/components/ui/separator'
+import { ServerSection } from '../ServerSection'
+import { SeverChannel } from '../ServerChannel'
+import { ServerMember } from '../ServerMember/intex'
 
 interface ServerSidebarProps {
-  serverId: string;
+  serverId: string
 }
 
 const iconMap = {
   [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
   [ChannelType.AUDIO]: <Mic className="mr-2 h-4 w-4" />,
   [ChannelType.VIDEO]: <Video className="mr-2 h-4 w-4" />,
-};
+}
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: <ShieldCheck className="h-4 w-4 mr-2 text-indigo-500" />,
   [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 mr-2 text-rose-500" />,
-};
+}
 
 export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
 
   if (!profile) {
-    return redirect('/');
+    return redirect('/')
   }
   const server = await db.server.findUnique({
     where: {
@@ -52,19 +52,19 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         },
       },
     },
-  });
+  })
 
-  const textChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT);
-  const audioChannels = server?.channels.filter((channel) => channel.type === ChannelType.AUDIO);
-  const videoChannels = server?.channels.filter((channel) => channel.type === ChannelType.VIDEO);
+  const textChannels = server?.channels.filter((channel) => channel.type === ChannelType.TEXT)
+  const audioChannels = server?.channels.filter((channel) => channel.type === ChannelType.AUDIO)
+  const videoChannels = server?.channels.filter((channel) => channel.type === ChannelType.VIDEO)
 
-  const members = server?.members.filter((member) => member.profileId !== profile.id);
+  const members = server?.members.filter((member) => member.profileId !== profile.id)
 
   if (!server) {
-    return redirect('/');
+    return redirect('/')
   }
 
-  const role = server.members.find((member) => member.profileId === profile.id)?.role;
+  const role = server.members.find((member) => member.profileId === profile.id)?.role
 
   return (
     <div className="flex flex-col h-full text-primary w-full dark:bg-[#2B2D31] bg-[#F2F3F5]">
@@ -170,5 +170,5 @@ export const ServerSidebar = async ({ serverId }: ServerSidebarProps) => {
         )}
       </ScrollArea>
     </div>
-  );
-};
+  )
+}

@@ -1,20 +1,20 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 export function middleware(req: NextRequest) {
-  console.log('middleware calling...');
-  const token = req.cookies.get('token');
+  console.log('middleware calling...')
+  const token = req.cookies.get('token')
 
   if (!token) {
-    const loginUrl = req.nextUrl.clone();
-    loginUrl.pathname = '/login';
-    return NextResponse.redirect(loginUrl);
+    const loginUrl = req.nextUrl.clone()
+    loginUrl.pathname = '/login'
+    return NextResponse.redirect(loginUrl)
   }
 
-  return NextResponse.next();
+  return NextResponse.next()
 }
 
 // Only apply middleware to specific routes
 export const config = {
   matcher: ['/chat/:path*', '/profile/:path*'],
-};
+}

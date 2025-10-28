@@ -1,13 +1,13 @@
-import { MobileToggle } from '@/components/mobile-toggle';
-import { SocketIndicator } from '@/components/socket-indicator';
-import { UserAvatar } from '@/components/UserAvatar';
-import { Hash, Menu } from 'lucide-react';
+import { MobileToggle } from '@/components/mobile-toggle'
+import { SocketIndicator } from '@/components/socket-indicator'
+import { UserAvatar } from '@/components/UserAvatar'
+import { Hash, Menu } from 'lucide-react'
 
 interface ChatHeader {
-  serverId: string;
-  name: string;
-  type: 'channel' | 'conversation';
-  imageUrl?: string;
+  serverId: string
+  name: string
+  type: 'channel' | 'conversation'
+  imageUrl?: string
 }
 
 export const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeader) => {
@@ -26,5 +26,5 @@ export const ChatHeader = ({ serverId, name, type, imageUrl }: ChatHeader) => {
         <SocketIndicator />
       </div>
     </div>
-  );
-};
+  )
+}

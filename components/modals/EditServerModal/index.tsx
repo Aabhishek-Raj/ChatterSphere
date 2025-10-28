@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import axios from 'axios';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import axios from 'axios'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Dialog,
@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 import {
   Form,
   FormControl,
@@ -20,13 +20,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useModal } from '@/hooks/use-modal-store';
-import useAxiosPrivate from '@/app/hooks/useAxiosPrivate';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useModal } from '@/hooks/use-modal-store'
+import useAxiosPrivate from '@/app/hooks/useAxiosPrivate'
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -35,16 +35,16 @@ const formSchema = z.object({
   imageUrl: z.string().min(1, {
     message: 'server Image is required',
   }),
-});
+})
 
 export const EditServerModal = () => {
-  const { isOpen, onClose, type, data } = useModal();
-  const router = useRouter();
+  const { isOpen, onClose, type, data } = useModal()
+  const router = useRouter()
 
-  const axiosPrivate = useAxiosPrivate();
+  const axiosPrivate = useAxiosPrivate()
 
-  const isModalOpen = isOpen && type === 'editServer';
-  const { server } = data;
+  const isModalOpen = isOpen && type === 'editServer'
+  const { server } = data
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -52,32 +52,32 @@ export const EditServerModal = () => {
       name: '',
       imageUrl: '',
     },
-  });
+  })
 
   useEffect(() => {
     if (server) {
-      form.setValue('name', server.name);
-      form.setValue('imageUrl', server.imageUrl);
+      form.setValue('name', server.name)
+      form.setValue('imageUrl', server.imageUrl)
     }
-  }, [server, form]);
+  }, [server, form])
 
-  const isLoading = form.formState.isSubmitting;
+  const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      await axiosPrivate.patch(`/api/servers/${server?.id}`, values);
-      form.reset();
-      router.refresh();
-      onClose();
+      await axiosPrivate.patch(`/api/servers/${server?.id}`, values)
+      form.reset()
+      router.refresh()
+      onClose()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   const handleClose = () => {
-    form.reset();
-    onClose();
-  };
+    form.reset()
+    onClose()
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
@@ -145,5 +145,5 @@ export const EditServerModal = () => {
         </Form>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

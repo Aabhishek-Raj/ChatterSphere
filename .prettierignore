@@ -1,0 +1,22 @@
+# -----------------------------------------------------------------
+# BUILD AND CACHE
+# Ignore built files and cache directories
+# -----------------------------------------------------------------
+.next/
+dist/
+build/
+out/
+
+# -----------------------------------------------------------------
+# DEPENDENCIES AND CONFIG
+# Ignore dependency directory
+# -----------------------------------------------------------------
+node_modules/
+
+# -----------------------------------------------------------------
+# GENERATED/ASSET FILES
+# Ignore auto-generated files and large asset directories
+# -----------------------------------------------------------------
+public/
+.env
+.env.*

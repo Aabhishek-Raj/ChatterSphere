@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { ToolTip } from '@/components/actions/tooltip';
-import { UserAvatar } from '@/components/UserAvatar';
-import { cn } from '@/lib/utils';
-import { Member, Profile } from '@prisma/client';
-import { Edit, ShieldAlert, ShieldCheck } from 'lucide-react';
+import { ToolTip } from '@/components/actions/tooltip'
+import { UserAvatar } from '@/components/UserAvatar'
+import { cn } from '@/lib/utils'
+import { Member, Profile } from '@prisma/client'
+import { Edit, ShieldAlert, ShieldCheck } from 'lucide-react'
 
 interface ChatItemProps {
-  id: string;
-  content: string;
+  id: string
+  content: string
   member: Member & {
-    profile: Profile;
-  };
-  timestamp: string;
-  fileUrl: string | null;
-  deleted: boolean;
-  currentMember: Member;
-  isUpdated: boolean;
-  socketUrl: string;
-  socketQuery: Record<string, string>;
+    profile: Profile
+  }
+  timestamp: string
+  fileUrl: string | null
+  deleted: boolean
+  currentMember: Member
+  isUpdated: boolean
+  socketUrl: string
+  socketQuery: Record<string, string>
 }
 
 const roleIconMap = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="h-4 w-4 text-indigo-500" />,
   ADMIN: <ShieldAlert className="h-4 w-4 text-rose-500" />,
-};
+}
 
 export const MessageItem = ({
   id,
@@ -77,5 +77,5 @@ export const MessageItem = ({
         </ToolTip>
       )}
     </div>
-  );
-};
+  )
+}

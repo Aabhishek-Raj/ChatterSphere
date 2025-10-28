@@ -1,5 +1,5 @@
-'use client';
-import axios from 'axios';
+'use client'
+import axios from 'axios'
 
 import {
   Dialog,
@@ -8,49 +8,49 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog';
+} from '@/components/ui/dialog'
 
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import { useModal } from '@/hooks/use-modal-store';
-import { Label } from '@/components/ui/label';
-import { Check, Copy, RefreshCw } from 'lucide-react';
-import { useOrigin } from '@/hooks/use-origin';
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { useState } from 'react'
+import { useModal } from '@/hooks/use-modal-store'
+import { Label } from '@/components/ui/label'
+import { Check, Copy, RefreshCw } from 'lucide-react'
+import { useOrigin } from '@/hooks/use-origin'
 
 export const InviteModal = () => {
-  const { isOpen, onOpen, onClose, type, data } = useModal();
-  const origin = useOrigin();
+  const { isOpen, onOpen, onClose, type, data } = useModal()
+  const origin = useOrigin()
 
-  const [copied, setCopied] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [copied, setCopied] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const isModalOpen = isOpen && type === 'invite';
-  const { server } = data;
+  const isModalOpen = isOpen && type === 'invite'
+  const { server } = data
 
-  const inviteUrl = `${origin}/chat/invite/${server?.inviteCode}`;
+  const inviteUrl = `${origin}/chat/invite/${server?.inviteCode}`
 
   const onCopy = () => {
-    navigator.clipboard.writeText(inviteUrl);
-    setCopied(true);
+    navigator.clipboard.writeText(inviteUrl)
+    setCopied(true)
 
     setTimeout(() => {
-      setCopied(false);
-    }, 1000);
-  };
+      setCopied(false)
+    }, 1000)
+  }
 
   const onNew = async () => {
     try {
-      setLoading(true);
-      const response = await axios.patch(`/api/servers/${server?.id}/invite-code`);
+      setLoading(true)
+      const response = await axios.patch(`/api/servers/${server?.id}/invite-code`)
 
-      onOpen('invite', { server: response.data });
+      onOpen('invite', { server: response.data })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
@@ -88,5 +88,5 @@ export const InviteModal = () => {
         </div>
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}

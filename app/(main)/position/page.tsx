@@ -1,5 +1,5 @@
 const Position = () => {
-  return <div>Position</div>;
-};
+  return <div>Position</div>
+}
 
-export default Position;
+export default Position
