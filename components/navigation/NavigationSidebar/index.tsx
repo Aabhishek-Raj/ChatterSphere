@@ -9,7 +9,6 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 export const NavigationSidebar = async () => {
   const profile = await initialProfile();
-  console.log(profile, 'currentUser');
 
   if (!profile) {
     return redirect('/');
@@ -23,7 +22,6 @@ export const NavigationSidebar = async () => {
       },
     },
   }); 
-  console.log(servers, 'serveer');
 
   return (
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">

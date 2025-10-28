@@ -4,8 +4,7 @@ import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const cookieStore = cookies();
-  console.log(cookieStore, 'ccolie');
+  const cookieStore = await cookies();
   const refreshToken = cookieStore.get('jwt')?.value;
 
   if (!refreshToken) {

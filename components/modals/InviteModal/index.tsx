@@ -21,7 +21,6 @@ import { useOrigin } from '@/hooks/use-origin';
 export const InviteModal = () => {
   const { isOpen, onOpen, onClose, type, data } = useModal();
   const origin = useOrigin();
-  console.log(origin, 'rogi');
 
   const [copied, setCopied] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);

@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'; // Or your preferred state management
 import { RootState } from '@/store/store'; // Adjust the path to your store
 
 const RequireAuth = ({ children }: { children: React.ReactNode }) => {
-  console.log('cllein...');
   const token = useSelector((state: RootState) => state.auth.token); // Replace with your token selector
   const router = useRouter(); // Import from next/navigation for app directory routing
   const [isMounted, setIsMounted] = useState(false);

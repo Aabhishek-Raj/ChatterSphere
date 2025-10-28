@@ -6,11 +6,9 @@ import { MemberRole } from '@prisma/client';
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('haithere');
     const { name, imageUrl } = await req.json();
     // const profile = await currentUser()
     const profile = await initialProfile();
-    console.log(profile);
 
     if (!profile) {
       return new NextResponse('Unauthorized', { status: 401 });

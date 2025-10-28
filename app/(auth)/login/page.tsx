@@ -48,9 +48,7 @@ const LoginPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log('prnting.....');
       const userData = await login(values).unwrap();
-      console.log(userData, 'use');
       dispatch(setCredentials({ ...userData, user: values.email }));
       // const saveCoreUser = await apiService.get('/api/auth/registerUser', values)
       // const response = await signup(values)

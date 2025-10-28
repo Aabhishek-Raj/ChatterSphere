@@ -36,7 +36,6 @@ const formSchema = z.object({
 });
 
 export const InitialModal = () => {
-  console.log('second');
   const router = useRouter();
   const [isMounted, setIsMounted] = useState(false);
 

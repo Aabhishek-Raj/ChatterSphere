@@ -26,7 +26,6 @@ export const SeverChannel = ({ channel, server, role }: ServerChannelProps) => {
   const Icon = IconMap[channel.type];
 
   const onClick = () => {
-    console.log('hoi');
     router.push(`/chat/servers/${params.serverId}/channels/${channel.id}`);
   };
 

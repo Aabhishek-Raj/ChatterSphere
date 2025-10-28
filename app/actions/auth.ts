@@ -13,7 +13,6 @@ interface params {
 
 export async function signup({ email, password }: params) {
   try {
-    console.log(email, password, "EMAIL")
     if (!email || !password) {
       throw new Error("Email is required to find a profile");
     }
@@ -40,7 +39,6 @@ export async function signup({ email, password }: params) {
         password: hashedPassword
       }
     })
-    console.log(savedUser, 'Saved-user')
 
     const sessionId = await bcrypt.hash(savedUser.id, 10)
 
@@ -134,7 +132,6 @@ export async function handleLogin(accessToken: string, email, password) {
 
       // Detected refresh token reuse!
       if (!foundToken) {
-        console.log('attempted refresh token reuse at login!')
         // clear out ALL previous refresh tokens
         newRefreshTokenArray = [];
       }
@@ -154,8 +151,6 @@ export async function handleLogin(accessToken: string, email, password) {
       where: { email },
       data: { refreshToken: foundUser.refreshToken }
     });
-    console.log(result);
-    console.log(roles);
 
     // Creates Secure Cookie with refresh token
      cookieStore.set("jwt", newRefreshToken, {
@@ -204,7 +199,6 @@ export async function handleRefreshToken(refreshToken) {
           process.env.REFRESH_TOKEN_SECRET,
           async (error, decoded) => {
               if (error) return {success: false, message: "Forbidden"}; //Forbidden
-              console.log('attempted refresh token reuse!')
               // const hackedUser = await db.profile.findUnique({where: { id: decoded.userId }})
               // hackedUser.refreshToken = [];
               const hackedUserUpdate = await db.profile.update({
@@ -228,13 +222,11 @@ export async function handleRefreshToken(refreshToken) {
     process.env.REFRESH_TOKEN_SECRET,
     async (err, decoded) => {
         if (err) {
-            console.log('expired refresh token')
             foundUser.refreshToken = [...newRefreshTokenArray];
             const result = await db.profile.update({
               where: { id: decoded.userId },
               data: { refreshToken: [...newRefreshTokenArray] }
             });
-            console.log(result);
         }
         if (err || foundUser.id !== decoded.userId) {
           return {
@@ -315,7 +307,6 @@ const handleLogout = async (refreshToken) => {
     where: {id: foundUser.id},
     data: { refreshToken: updateRefreshToken}
   })
-  console.log(result);
 
   cookieStore.set('jwt', '', {
     httpOnly: true,
