@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
-import { ThemeProvider } from '@/components/providers/theme-provider';
-import { ModalProvider } from '@/components/providers/modal-provider';
-import { NavigationSidebar } from '@/components/navigation/NavigationSidebar';
-import HeaderItem from '@/components/header/HeaderItem/page';
+import { usePathname } from 'next/navigation'
+import { ReactNode } from 'react'
+import { ThemeProvider } from '@/components/providers/theme-provider'
+import { ModalProvider } from '@/components/providers/modal-provider'
+import { NavigationSidebar } from '@/components/navigation/NavigationSidebar'
+import HeaderItem from '@/components/header/HeaderItem/page'
 
 export default function ClientLayoutWrapper({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
-  const isChat = pathname?.startsWith('/chat');
+  const pathname = usePathname()
+  const isChat = pathname?.startsWith('/chat')
 
-  if (isChat) return <>{children}</>;
+  if (isChat) return <>{children}</>
 
   return (
     <div className="h-full">
@@ -20,5 +20,5 @@ export default function ClientLayoutWrapper({ children }: { children: ReactNode 
       </div>
       <div className="mt-16">{children}</div>
     </div>
-  );
+  )
 }

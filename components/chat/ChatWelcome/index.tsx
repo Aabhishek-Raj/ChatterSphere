@@ -1,8 +1,8 @@
-import { Hash } from 'lucide-react';
+import { Hash } from 'lucide-react'
 
 interface ChatWelcomeProps {
-  name: string;
-  type: 'channel' | 'conversation';
+  name: string
+  type: 'channel' | 'conversation'
 }
 
 export const ChatWelcome = ({ name, type }: ChatWelcomeProps) => {
@@ -26,5 +26,5 @@ export const ChatWelcome = ({ name, type }: ChatWelcomeProps) => {
           : `This is the start of your conversation with ${name}`}
       </p>
     </div>
-  );
-};
+  )
+}

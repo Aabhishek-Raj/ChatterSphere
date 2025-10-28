@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { selectCurrentToken, selectCurrentUser } from '@/store/reducers/auth/authSlice';
-import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { selectCurrentToken, selectCurrentUser } from '@/store/reducers/auth/authSlice'
+import Link from 'next/link'
+import { useSelector } from 'react-redux'
 
 export default function Page() {
-  const user = useSelector(selectCurrentUser);
-  const token = useSelector(selectCurrentToken);
+  const user = useSelector(selectCurrentUser)
+  const token = useSelector(selectCurrentToken)
 
-  const welcome = user ? `Welcome ${user}!` : 'Welcome!';
-  const tokenAbbr = `${token?.slice(0, 9)}...`;
+  const welcome = user ? `Welcome ${user}!` : 'Welcome!'
+  const tokenAbbr = `${token?.slice(0, 9)}...`
 
   return (
     <section className="flex items-center justify-center flex-col">
@@ -21,5 +21,5 @@ export default function Page() {
         <Link href="/dashboard/followers">Go to followers list</Link>
       </p>
     </section>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-'use client';
+'use client'
 
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useRouter } from 'next/navigation';
+import { Separator } from '@/components/ui/separator'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useRouter } from 'next/navigation'
 
 const HeaderItem = () => {
-  const router = useRouter();
+  const router = useRouter()
 
   const handleTabChange = (value: string) => {
-    router.push(`/${value}`);
-  };
+    router.push(`/${value}`)
+  }
 
   return (
     <div className="h-full flex items-center p-3 ">
@@ -25,7 +25,7 @@ const HeaderItem = () => {
         </TabsList>
       </Tabs>
     </div>
-  );
-};
+  )
+}
 
-export default HeaderItem;
+export default HeaderItem

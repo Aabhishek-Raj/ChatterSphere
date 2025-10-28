@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Form,
@@ -11,15 +11,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { redirect, useRouter } from 'next/navigation';
-import { useFormState } from 'react-dom';
-import apiService from '@/app/services/apiServices';
-import { useRegisterMutation } from '@/store/reducers/auth/authApiSlice';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '@/store/reducers/auth/authSlice';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { redirect, useRouter } from 'next/navigation'
+import { useFormState } from 'react-dom'
+import apiService from '@/app/services/apiServices'
+import { useRegisterMutation } from '@/store/reducers/auth/authApiSlice'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '@/store/reducers/auth/authSlice'
 
 const formSchema = z.object({
   name: z.string().min(1, {
@@ -31,12 +31,12 @@ const formSchema = z.object({
   password: z.string().min(1, {
     message: 'password is required',
   }),
-});
+})
 
 const RegisterPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [register, { isLoading }] = useRegisterMutation();
+  const [register, { isLoading }] = useRegisterMutation()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -45,21 +45,21 @@ const RegisterPage = () => {
       email: '',
       password: '',
     },
-  });
+  })
 
-  const loading = form.formState.isSubmitting;
+  const loading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userData = await register(values).unwrap();
-      form.reset();
+      const userData = await register(values).unwrap()
+      form.reset()
       // router.refresh()
       // window.location.reload()
-      redirect('/login');
+      redirect('/login')
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div className="h-100">
@@ -131,7 +131,7 @@ const RegisterPage = () => {
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default RegisterPage;
+export default RegisterPage

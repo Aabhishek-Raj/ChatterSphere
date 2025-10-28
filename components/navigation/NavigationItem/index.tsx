@@ -1,24 +1,24 @@
-'use client';
+'use client'
 
-import Image from 'next/image';
-import { useParams, useRouter } from 'next/navigation';
+import Image from 'next/image'
+import { useParams, useRouter } from 'next/navigation'
 
-import { cn } from '@/lib/utils';
-import { ToolTip } from '@/components/actions/tooltip';
+import { cn } from '@/lib/utils'
+import { ToolTip } from '@/components/actions/tooltip'
 
 interface NavigationItemProps {
-  id: string;
-  imageUrl: string;
-  name: string;
+  id: string
+  imageUrl: string
+  name: string
 }
 
 export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
-  const params = useParams();
-  const router = useRouter();
+  const params = useParams()
+  const router = useRouter()
 
   const onClick = () => {
-    router.push(`/chat/servers/${id}`);
-  };
+    router.push(`/chat/servers/${id}`)
+  }
 
   return (
     <ToolTip side="right" align="center" label={name}>
@@ -40,5 +40,5 @@ export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
         </div>
       </button>
     </ToolTip>
-  );
-};
+  )
+}

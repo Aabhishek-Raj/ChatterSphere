@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import * as z from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import * as z from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
 
 import {
   Form,
@@ -11,15 +11,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { redirect, useRouter } from 'next/navigation';
-import { useFormState } from 'react-dom';
-import apiService from '@/app/services/apiServices';
-import { useLoginMutation } from '@/store/reducers/auth/authApiSlice';
-import { useDispatch } from 'react-redux';
-import { setCredentials } from '@/store/reducers/auth/authSlice';
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
+import { redirect, useRouter } from 'next/navigation'
+import { useFormState } from 'react-dom'
+import apiService from '@/app/services/apiServices'
+import { useLoginMutation } from '@/store/reducers/auth/authApiSlice'
+import { useDispatch } from 'react-redux'
+import { setCredentials } from '@/store/reducers/auth/authSlice'
 
 const formSchema = z.object({
   email: z.string().min(1, {
@@ -28,13 +28,13 @@ const formSchema = z.object({
   password: z.string().min(1, {
     message: 'password is required',
   }),
-});
+})
 
 const LoginPage = () => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const [login, { isLoading }] = useLoginMutation();
-  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation()
+  const dispatch = useDispatch()
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -42,23 +42,23 @@ const LoginPage = () => {
       email: '',
       password: '',
     },
-  });
+  })
 
-  const loading = form.formState.isSubmitting;
+  const loading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userData = await login(values).unwrap();
-      dispatch(setCredentials({ ...userData, user: values.email }));
+      const userData = await login(values).unwrap()
+      dispatch(setCredentials({ ...userData, user: values.email }))
       // const saveCoreUser = await apiService.get('/api/auth/registerUser', values)
       // const response = await signup(values)
-      form.reset();
-      router.push('/');
-      router.refresh();
+      form.reset()
+      router.push('/')
+      router.refresh()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <div className="h-100">
@@ -112,7 +112,7 @@ const LoginPage = () => {
         </form>
       </Form>
     </div>
-  );
-};
+  )
+}
 
-export default LoginPage;
+export default LoginPage

@@ -1,9 +1,9 @@
-import { Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { NavigationSidebar } from './navigation/NavigationSidebar';
-import { ServerSidebar } from './server/ServerSidebar';
-import { CustomButton } from './ui/minors/custom-button';
-import { Button } from './ui/button';
+import { Menu } from 'lucide-react'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { NavigationSidebar } from './navigation/NavigationSidebar'
+import { ServerSidebar } from './server/ServerSidebar'
+import { CustomButton } from './ui/minors/custom-button'
+import { Button } from './ui/button'
 
 export const MobileToggle = ({ serverId }: { serverId: string }) => {
   return (
@@ -20,5 +20,5 @@ export const MobileToggle = ({ serverId }: { serverId: string }) => {
         <ServerSidebar serverId={serverId} />
       </SheetContent>
     </Sheet>
-  );
-};
+  )
+}

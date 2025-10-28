@@ -1,18 +1,18 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { db } from '@/lib/db';
-import { partialMatchKey } from '@tanstack/react-query';
-import { redirect } from 'next/navigation';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { db } from '@/lib/db'
+import { partialMatchKey } from '@tanstack/react-query'
+import { redirect } from 'next/navigation'
 
 interface ServerPageProps {
-  params: Promise<{ serverId: string }>;
+  params: Promise<{ serverId: string }>
 }
 
 const ServerPage = async ({ params }: ServerPageProps) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
   const { serverId } = await params
 
   if (!profile) {
-    return redirect('/login');
+    return redirect('/login')
   }
 
   console.log(serverId, 'Parm--')
@@ -36,15 +36,15 @@ const ServerPage = async ({ params }: ServerPageProps) => {
         },
       },
     },
-  });
+  })
 
-  const initialChannel = server?.channels[0];
+  const initialChannel = server?.channels[0]
 
   if (initialChannel?.name !== 'general') {
-    return null;
+    return null
   }
 
-  return redirect(`/chat/servers/${serverId}/channels/${initialChannel?.id}`);
-};
+  return redirect(`/chat/servers/${serverId}/channels/${initialChannel?.id}`)
+}
 
-export default ServerPage;
+export default ServerPage

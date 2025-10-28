@@ -1,6 +1,6 @@
-import { NavigationSidebar } from '@/components/navigation/NavigationSidebar';
-import { QueryProvider } from '@/components/providers/query-provider';
-import { SocketProvider } from '@/components/providers/socket-provider';
+import { NavigationSidebar } from '@/components/navigation/NavigationSidebar'
+import { QueryProvider } from '@/components/providers/query-provider'
+import { SocketProvider } from '@/components/providers/socket-provider'
 
 const ChatLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -14,7 +14,7 @@ const ChatLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </QueryProvider>
     </SocketProvider>
-  );
-};
+  )
+}
 
-export default ChatLayout;
+export default ChatLayout

@@ -1,29 +1,29 @@
-'use client';
+'use client'
 
-import { UserAvatar } from '@/components/UserAvatar';
-import { cn } from '@/lib/utils';
-import { Member, MemberRole, Profile, Server } from '@prisma/client';
-import { ShieldAlert, ShieldCheck } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { UserAvatar } from '@/components/UserAvatar'
+import { cn } from '@/lib/utils'
+import { Member, MemberRole, Profile, Server } from '@prisma/client'
+import { ShieldAlert, ShieldCheck } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
 
 interface ServerMemberProps {
-  member: Member & { profile: Profile };
-  server: Server;
+  member: Member & { profile: Profile }
+  server: Server
 }
 
 const roleIconMap = {
   [MemberRole.GUEST]: null,
   [MemberRole.MODERATOR]: <ShieldCheck className="h-4 w-4 ml-2 text-indigo-500" />,
   [MemberRole.ADMIN]: <ShieldAlert className="h-4 w-4 ml-2 text-rose-500" />,
-};
+}
 
 export const ServerMember = ({ member, server }: ServerMemberProps) => {
-  const params = useParams();
-  const router = useRouter();
+  const params = useParams()
+  const router = useRouter()
 
   const onClick = () => {
-    router.push(`/chat/servers/${params?.serverId}/conversations/${member.id}`);
-  };
+    router.push(`/chat/servers/${params?.serverId}/conversations/${member.id}`)
+  }
 
   return (
     <button
@@ -44,5 +44,5 @@ export const ServerMember = ({ member, server }: ServerMemberProps) => {
         {member.profile.name}
       </p>
     </button>
-  );
-};
+  )
+}

@@ -1,17 +1,17 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { NavigationAction } from '../NavigattionAction';
-import { redirect } from 'next/navigation';
-import { db } from '@/lib/db';
-import { Separator } from '@/components/ui/separator';
-import { NavigationItem } from '../NavigationItem';
-import { ModeToggle } from '@/components/mode-toggle';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { NavigationAction } from '../NavigattionAction'
+import { redirect } from 'next/navigation'
+import { db } from '@/lib/db'
+import { Separator } from '@/components/ui/separator'
+import { NavigationItem } from '../NavigationItem'
+import { ModeToggle } from '@/components/mode-toggle'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 export const NavigationSidebar = async () => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
 
   if (!profile) {
-    return redirect('/');
+    return redirect('/')
   }
   const servers = await db.server.findMany({
     where: {
@@ -21,7 +21,7 @@ export const NavigationSidebar = async () => {
         },
       },
     },
-  }); 
+  })
 
   return (
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full dark:bg-[#1E1F22] bg-[#E3E5E8] py-3">
@@ -38,5 +38,5 @@ export const NavigationSidebar = async () => {
         <ModeToggle />
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,19 +1,19 @@
-import { apiSlice } from '@/store/api/apiSlice';
+import { apiSlice } from '@/store/api/apiSlice'
 
 interface RefreshToken {
-  roles: [];
-  accessToken: string;
+  roles: []
+  accessToken: string
 }
 
 interface LoginCredentials {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 interface RegisterCredentials {
-  name: string;
-  emial: string;
-  passsword: string;
+  name: string
+  emial: string
+  passsword: string
 }
 
 export const authApiSlice = apiSlice.injectEndpoints({
@@ -33,6 +33,6 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
     }),
   }),
-});
+})
 
-export const { useLoginMutation, useRegisterMutation } = authApiSlice;
+export const { useLoginMutation, useRegisterMutation } = authApiSlice

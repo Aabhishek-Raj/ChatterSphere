@@ -1,33 +1,33 @@
-'use client';
+'use client'
 
-import { ToolTip } from '@/components/actions/tooltip';
-import { ModalType } from '@/hooks/use-modal-store';
-import { cn } from '@/lib/utils';
-import { Channel, ChannelType, MemberRole, Server } from '@prisma/client';
-import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import { ToolTip } from '@/components/actions/tooltip'
+import { ModalType } from '@/hooks/use-modal-store'
+import { cn } from '@/lib/utils'
+import { Channel, ChannelType, MemberRole, Server } from '@prisma/client'
+import { Edit, Hash, Lock, Mic, Trash, Video } from 'lucide-react'
+import { useParams, useRouter } from 'next/navigation'
 
 interface ServerChannelProps {
-  channel: Channel;
-  server: Server;
-  role?: MemberRole;
+  channel: Channel
+  server: Server
+  role?: MemberRole
 }
 
 const IconMap = {
   [ChannelType.TEXT]: Hash,
   [ChannelType.AUDIO]: Mic,
   [ChannelType.VIDEO]: Video,
-};
+}
 
 export const SeverChannel = ({ channel, server, role }: ServerChannelProps) => {
-  const params = useParams();
-  const router = useRouter();
+  const params = useParams()
+  const router = useRouter()
 
-  const Icon = IconMap[channel.type];
+  const Icon = IconMap[channel.type]
 
   const onClick = () => {
-    router.push(`/chat/servers/${params.serverId}/channels/${channel.id}`);
-  };
+    router.push(`/chat/servers/${params.serverId}/channels/${channel.id}`)
+  }
 
   // const onAction = (e: React.MouseEvent, action: ModalType) => {
   //   e.stopPropagation()
@@ -70,5 +70,5 @@ export const SeverChannel = ({ channel, server, role }: ServerChannelProps) => {
         <Lock className="ml-auto w-4 h-4 text-zinc-500 dark:text-zinc-400" />
       )}
     </button>
-  );
-};
+  )
+}

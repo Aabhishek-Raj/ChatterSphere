@@ -1,5 +1,5 @@
 import { signup } from '@/app/actions/auth'
- 
+
 export function SignupForm() {
   return (
     <form action={signup}>

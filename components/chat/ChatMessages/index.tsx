@@ -1,31 +1,31 @@
-'use client';
+'use client'
 
-import { Member, Message, Profile } from '@prisma/client';
-import { ChatWelcome } from '../ChatWelcome';
-import { useChatQuery } from '@/hooks/use-chat-query';
-import { Loader2, ServerCrash } from 'lucide-react';
-import { Fragment } from 'react';
-import { MessageItem } from '../MessageItem';
-import { format } from 'date-fns';
+import { Member, Message, Profile } from '@prisma/client'
+import { ChatWelcome } from '../ChatWelcome'
+import { useChatQuery } from '@/hooks/use-chat-query'
+import { Loader2, ServerCrash } from 'lucide-react'
+import { Fragment } from 'react'
+import { MessageItem } from '../MessageItem'
+import { format } from 'date-fns'
 
-const DATE_FORMAT = 'd MM yyy, HH:MM';
+const DATE_FORMAT = 'd MM yyy, HH:MM'
 
 type MessageWithMemberWithProfile = Message & {
   member: Member & {
-    profile: Profile;
-  };
-};
+    profile: Profile
+  }
+}
 
 interface ChatMessagesProps {
-  name: string;
-  member: Member;
-  chatId: string;
-  apiUrl: string;
-  socketUrl: string;
-  socketQuery: Record<string, string>;
-  paramKey: 'channelId' | 'conversationId';
-  paramValue: string;
-  type: 'channel' | 'conversation';
+  name: string
+  member: Member
+  chatId: string
+  apiUrl: string
+  socketUrl: string
+  socketQuery: Record<string, string>
+  paramKey: 'channelId' | 'conversationId'
+  paramValue: string
+  type: 'channel' | 'conversation'
 }
 
 export const ChatMessages = ({
@@ -39,14 +39,14 @@ export const ChatMessages = ({
   paramValue,
   type,
 }: ChatMessagesProps) => {
-  const queryKey = `chat:${chatId}`;
+  const queryKey = `chat:${chatId}`
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useChatQuery({
     queryKey,
     apiUrl,
     paramKey,
     paramValue,
-  });
+  })
 
   if (status === 'loading') {
     return (
@@ -54,7 +54,7 @@ export const ChatMessages = ({
         <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4" />
         <p className="text-sm text-zinc-500 dark:text-zinc-400">Loading Messages...</p>
       </div>
-    );
+    )
   }
 
   if (status === 'error') {
@@ -63,7 +63,7 @@ export const ChatMessages = ({
         <ServerCrash className="h-7 w-7 text-zinc-500 my-4" />
         <p className="text-sm text-zinc-500 dark:text-zinc-400">Something went wrong!.</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -92,5 +92,5 @@ export const ChatMessages = ({
         ))}
       </div>
     </div>
-  );
-};
+  )
+}

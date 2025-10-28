@@ -1,17 +1,17 @@
-'use client';
+'use client'
 
-import { ToolTip } from '@/components/actions/tooltip';
-import { useModal } from '@/hooks/use-modal-store';
-import { ServerWithMembersWithProfile } from '@/types';
-import { ChannelType, MemberRole } from '@prisma/client';
-import { Plus, Settings } from 'lucide-react';
+import { ToolTip } from '@/components/actions/tooltip'
+import { useModal } from '@/hooks/use-modal-store'
+import { ServerWithMembersWithProfile } from '@/types'
+import { ChannelType, MemberRole } from '@prisma/client'
+import { Plus, Settings } from 'lucide-react'
 
 interface ServerSectionProps {
-  label: string;
-  role?: MemberRole;
-  sectionType: 'channels' | 'members';
-  channelType?: ChannelType;
-  server?: ServerWithMembersWithProfile;
+  label: string
+  role?: MemberRole
+  sectionType: 'channels' | 'members'
+  channelType?: ChannelType
+  server?: ServerWithMembersWithProfile
 }
 
 export const ServerSection = ({
@@ -21,7 +21,7 @@ export const ServerSection = ({
   channelType,
   server,
 }: ServerSectionProps) => {
-  const { onOpen } = useModal();
+  const { onOpen } = useModal()
 
   return (
     <div className="flex items-center justify-between py-2">
@@ -50,5 +50,5 @@ export const ServerSection = ({
         </ToolTip>
       )}
     </div>
-  );
-};
+  )
+}

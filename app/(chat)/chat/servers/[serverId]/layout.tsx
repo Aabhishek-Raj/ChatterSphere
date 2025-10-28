@@ -1,22 +1,22 @@
-import { initialProfile } from '@/app/actions/initial-profile';
-import { ServerSidebar } from '@/components/server/ServerSidebar';
-import { db } from '@/lib/db';
-import { selectCurrentToken } from '@/store/reducers/auth/authSlice';
+import { initialProfile } from '@/app/actions/initial-profile'
+import { ServerSidebar } from '@/components/server/ServerSidebar'
+import { db } from '@/lib/db'
+import { selectCurrentToken } from '@/store/reducers/auth/authSlice'
 
-import { redirect } from 'next/navigation';
-import { useSelector } from 'react-redux';
+import { redirect } from 'next/navigation'
+import { useSelector } from 'react-redux'
 
 const ServerIdLayout = async ({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ serverId: string }>;
+  children: React.ReactNode
+  params: Promise<{ serverId: string }>
 }) => {
-  const profile = await initialProfile();
+  const profile = await initialProfile()
   const { serverId } = await params
 
-  if (!profile) return redirect('/');
+  if (!profile) return redirect('/')
 
   const server = await db.server.findUnique({
     where: {
@@ -27,10 +27,10 @@ const ServerIdLayout = async ({
         },
       },
     },
-  });
+  })
 
   if (!server) {
-    return redirect('/');
+    return redirect('/')
   }
 
   return (
@@ -40,7 +40,7 @@ const ServerIdLayout = async ({
       </div>
       <main className="h-full md:pl-60">{children}</main>
     </div>
-  );
-};
+  )
+}
 
-export default ServerIdLayout;
+export default ServerIdLayout

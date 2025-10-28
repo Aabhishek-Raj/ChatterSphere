@@ -1,47 +1,47 @@
-'use client';
+'use client'
 
-import { axiosPrivate } from '@/app/api/axios';
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Plus, Smile } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import * as z from 'zod';
-import { EmojiPicker } from '../EmojiPicker';
-import { useRouter } from 'next/navigation';
+import { axiosPrivate } from '@/app/api/axios'
+import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Plus, Smile } from 'lucide-react'
+import { useForm } from 'react-hook-form'
+import * as z from 'zod'
+import { EmojiPicker } from '../EmojiPicker'
+import { useRouter } from 'next/navigation'
 
 interface ChatInputProps {
-  apiUrl: string;
-  query: Record<string, any>;
-  name: string;
-  type: 'conversation' | 'channel';
+  apiUrl: string
+  query: Record<string, any>
+  name: string
+  type: 'conversation' | 'channel'
 }
 
 const formSchema = z.object({
   content: z.string().min(1),
-});
+})
 export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
-  const router = useRouter();
+  const router = useRouter()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: '',
     },
-  });
+  })
 
-  const isloading = form.formState.isSubmitting;
+  const isloading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const url = `${apiUrl}/?channelId=${query.channelId}&serverId=${query.serverId}`;
-      await axiosPrivate.post(url, values);
-      form.reset();
-      router.refresh();
+      const url = `${apiUrl}/?channelId=${query.channelId}&serverId=${query.serverId}`
+      await axiosPrivate.post(url, values)
+      form.reset()
+      router.refresh()
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  }
 
   return (
     <Form {...form}>
@@ -82,5 +82,5 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
         />
       </form>
     </Form>
-  );
-};
+  )
+}

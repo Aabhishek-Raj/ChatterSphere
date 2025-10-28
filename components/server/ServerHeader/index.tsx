@@ -1,8 +1,8 @@
-'use client';
+'use client'
 
-import { ServerWithMembersWithProfile } from '@/types';
-import { MemberRole } from '@prisma/client';
-import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from 'lucide-react';
+import { ServerWithMembersWithProfile } from '@/types'
+import { MemberRole } from '@prisma/client'
+import { ChevronDown, LogOut, PlusCircle, Settings, Trash, UserPlus, Users } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -10,19 +10,19 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { useModal } from '@/hooks/use-modal-store';
+} from '@/components/ui/dropdown-menu'
+import { useModal } from '@/hooks/use-modal-store'
 
 interface ServerHeaderProps {
-  server: ServerWithMembersWithProfile;
-  role?: MemberRole;
+  server: ServerWithMembersWithProfile
+  role?: MemberRole
 }
 
 export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
-  const { onOpen } = useModal();
+  const { onOpen } = useModal()
 
-  const isAdmin = role === MemberRole.ADMIN;
-  const isModerator = isAdmin || role === MemberRole.MODERATOR;
+  const isAdmin = role === MemberRole.ADMIN
+  const isModerator = isAdmin || role === MemberRole.MODERATOR
 
   return (
     <div>
@@ -90,5 +90,5 @@ export const ServerHeader = ({ server, role }: ServerHeaderProps) => {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
-};
+  )
+}

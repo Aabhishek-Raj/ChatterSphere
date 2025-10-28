@@ -1,57 +1,57 @@
-import { jwtVerify } from 'jose';
-import { db } from '../../lib/db';
-import { redirect } from 'next/navigation';
-import { cookies } from 'next/headers';
-import { NextApiRequest } from 'next';
+import { jwtVerify } from 'jose'
+import { db } from '../../lib/db'
+import { redirect } from 'next/navigation'
+import { cookies } from 'next/headers'
+import { NextApiRequest } from 'next'
 
 interface UserData {
-  userId: string;
+  userId: string
 }
 
 export const initialProfile = async (req?: NextApiRequest) => {
-  let userData;
+  let userData
   if (req) {
-    userData = await getUserIdFromToken(req);
+    userData = await getUserIdFromToken(req)
   } else {
-    userData = await getUserIdFromToken();
+    userData = await getUserIdFromToken()
   }
 
-  if (!userData) return redirect('/');
+  if (!userData) return redirect('/')
 
   const profile = await db.profile.findUnique({
     where: {
       id: userData.userId,
     },
-  });
+  })
 
-  if (profile) return profile;
+  if (profile) return profile
 
-  return;
-};
+  return
+}
 
 export const getUserIdFromToken = async (req?: NextApiRequest) => {
-  let token;
+  let token
   if (req) {
-    token = req.cookies['jwt'];
+    token = req.cookies['jwt']
   } else {
-    const cookieStore = await cookies();
-    token = cookieStore.get('jwt')?.value;
+    const cookieStore = await cookies()
+    token = cookieStore.get('jwt')?.value
   }
-  const secret = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET);
+  const secret = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
 
   if (!token) {
-    throw new Error('Token not found');
+    throw new Error('Token not found')
     // return null
   }
 
   try {
-    const { payload } = await jwtVerify(token, secret);
-    return { userId: payload.userId } as UserData;
+    const { payload } = await jwtVerify(token, secret)
+    return { userId: payload.userId } as UserData
   } catch (err) {
-    console.error('JWT decoding failed:', err);
-    return null;
+    console.error('JWT decoding failed:', err)
+    return null
   }
-};
+}
 
 // export const currentProfile = async () => {
 //     const user = await currentUser()

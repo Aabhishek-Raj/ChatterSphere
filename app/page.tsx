@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { ModeToggle } from '@/components/mode-toggle';
+import { Metadata } from 'next'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { ModeToggle } from '@/components/mode-toggle'
 
 export const metadata: Metadata = {
   title: 'ChatterSpere',
-};
+}
 
 export default function Page() {
   return (
@@ -18,5 +18,5 @@ export default function Page() {
         <ModeToggle />
       </div>
     </div>
-  );
+  )
 }
