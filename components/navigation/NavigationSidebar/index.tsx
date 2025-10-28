@@ -22,7 +22,7 @@ export const NavigationSidebar = async () => {
         },
       },
     },
-  });
+  }); 
   console.log(servers, 'serveer');
 
   return (

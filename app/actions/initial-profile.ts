@@ -10,11 +10,13 @@ interface UserData {
 
 export const initialProfile = async (req?: NextApiRequest) => {
   let userData;
+  console.log(userData, 'UserData:')
   if (req) {
     userData = await getUserIdFromToken(req);
   } else {
     userData = await getUserIdFromToken();
   }
+  console.log(userData, 'UserData:_')
 
   if (!userData) return redirect('/');
 
@@ -41,6 +43,7 @@ export const getUserIdFromToken = async (req?: NextApiRequest) => {
 
   if (!token) {
     throw new Error('Token not found');
+    // return null
   }
 
   try {
