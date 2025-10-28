@@ -7,7 +7,7 @@ import ReduxWrapper from '@/store/ReduxWrapper';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { ModalProvider } from '@/components/providers/modal-provider';
 import { NavigationSidebar } from '@/components/navigation/NavigationSidebar';
-import HeaderItem from '@/components/header/HeaderItem/page';
+import ClientLayoutWrapper from '@/components/layout/ClientLayoutWrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,24 +21,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <ReduxWrapper>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(inter.className, 'bg-white dark:bg-[#313338]')}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem={false}
-            storageKey="chatter-theme"
-          >
-            <ModalProvider />
-            <div className="h-full">
-              <div className="w-full h-[72px] z-30 flex-col fixed inset-y-0 bg-white dark:bg-[#313338]">
-                <HeaderItem />
-              </div>
-              <div className="mt-16">{children}</div>
-            </div>
-          </ThemeProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem={false}
+              storageKey="chatter-theme"
+            >
+              <ModalProvider />
+              <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+            </ThemeProvider>
         </body>
       </html>
     </ReduxWrapper>

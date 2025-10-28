@@ -10,7 +10,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'i.sstatic.net',
+        hostname: 'images6.alphacoders.com',
         port: '',
         pathname: '/**',
       },

@@ -20,6 +20,7 @@ const HeaderItem = () => {
           </TabsTrigger>
           <TabsTrigger value="position">Position</TabsTrigger>
           <TabsTrigger value="discover">Discover</TabsTrigger>
+          <TabsTrigger value="chat">Chat</TabsTrigger>
           <Separator className="w-[2px] bg-zinc-500 dark:text-indigo-500 rounded-md h-10 mx-auto" />
         </TabsList>
       </Tabs>
