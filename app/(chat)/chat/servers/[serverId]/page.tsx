@@ -1,23 +1,25 @@
 import { initialProfile } from '@/app/actions/initial-profile';
 import { db } from '@/lib/db';
+import { partialMatchKey } from '@tanstack/react-query';
 import { redirect } from 'next/navigation';
 
 interface ServerPageProps {
-  params: {
-    serverId: string;
-  };
+  params: Promise<{ serverId: string }>;
 }
 
 const ServerPage = async ({ params }: ServerPageProps) => {
   const profile = await initialProfile();
+  const { serverId } = await params
 
   if (!profile) {
     return redirect('/login');
   }
 
+  console.log(serverId, 'Parm--')
+
   const server = await db.server.findUnique({
     where: {
-      id: params.serverId,
+      id: serverId,
       members: {
         some: {
           profileId: profile.id,
@@ -42,7 +44,7 @@ const ServerPage = async ({ params }: ServerPageProps) => {
     return null;
   }
 
-  return redirect(`/chat/servers/${params.serverId}/channels/${initialChannel?.id}`);
+  return redirect(`/chat/servers/${serverId}/channels/${initialChannel?.id}`);
 };
 
 export default ServerPage;

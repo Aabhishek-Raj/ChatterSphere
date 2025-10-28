@@ -23,7 +23,6 @@ export async function GET(req: Request) {
     let messages: Message[] = [];
 
     if (cursor) {
-      console.log('aka', cursor);
       messages = await db.message.findMany({
         take: MESSAGE_BATCH,
         skip: 1,
@@ -62,7 +61,6 @@ export async function GET(req: Request) {
         },
       });
     }
-    console.log(messages, 'mes--');
 
     let nextCursor = null;
 
@@ -75,7 +73,6 @@ export async function GET(req: Request) {
       nextCursor,
     });
   } catch (error) {
-    console.log('[MESSAGE_GET]', error);
     return new NextResponse('internal error', { status: 500 });
   }
 }

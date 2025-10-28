@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    console.log('call....');
     const { email, password } = await req.json();
     if (!email || !password) {
       return NextResponse.json({ error: 'Email and password are required.' }, { status: 400 });
@@ -23,7 +22,6 @@ export async function POST(req: NextRequest) {
     }
 
     const roles = Object.values(foundUser.roles || {}).filter(Boolean);
-    console.log(process.env.ACCESS_TOKEN_SECRET);
 
     const accessToken = jwt.sign(
       {

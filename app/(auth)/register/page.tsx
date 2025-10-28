@@ -51,7 +51,6 @@ const RegisterPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      console.log(values, 'values');
       const userData = await register(values).unwrap();
       form.reset();
       // router.refresh()
