@@ -54,7 +54,7 @@ const RegisterPage = () => {
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       const userData = await register(values).unwrap()
-      form.reset()
+      // form.reset()
       // router.refresh()
       // window.location.reload()
       redirect('/login')
@@ -125,7 +125,7 @@ const RegisterPage = () => {
               </FormItem>
             )}
           />
-          <Button type="submit" size="lg" disabled={loading}>
+          <Button type="submit" size="lg" disabled={loading} className="cursor-pointer">
             Create
           </Button>
           <Separator />

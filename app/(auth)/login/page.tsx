@@ -55,7 +55,7 @@ const LoginPage = () => {
       // const saveCoreUser = await apiService.get('/api/auth/registerUser', values)
       // const response = await signup(values)
       form.reset()
-      router.push('/')
+      router.push('/chat')
       router.refresh()
     } catch (error) {
       console.log(error)
