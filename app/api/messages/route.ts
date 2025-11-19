@@ -74,7 +74,8 @@ export async function GET(req: Request) {
       nextCursor,
     })
   } catch (error) {
-    return new NextResponse('internal error', { status: 500 })
+    console.log("MESSAGE_GET", error)
+    return new NextResponse('Internal Error', { status: 500 })
   }
 }
 

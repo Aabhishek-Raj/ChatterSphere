@@ -1,8 +1,10 @@
 import { initialProfile } from '@/app/actions/initial-profile'
-import { ChatHeader } from '@/components/chat/chatHeader'
-import { ChatInput } from '@/components/chat/ChatInput/page'
+import { ChatHeader } from '@/components/chat/ChatHeader'
+import { ChatInput } from '@/components/chat/ChatInput'
 import { ChatMessages } from '@/components/chat/ChatMessages'
+import { MediaRoom } from '@/components/mediaRoom'
 import { db } from '@/lib/db'
+import { ChannelType } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
 interface ChannelIdPageProps {
@@ -36,9 +38,11 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#313338] flex flex-col">
+    <div className="bg-white dark:bg-[#313338] flex flex-col h-screen">
       <ChatHeader name={channel.name} serverId={channel.serverId} type="channel" />
 
+      {channel.type === ChannelType.TEXT && (
+        <>
       <ChatMessages
         member={member}
         name={channel.name}
@@ -53,16 +57,35 @@ const ChannelIdPage = async ({ params }: ChannelIdPageProps) => {
         paramKey="channelId"
         paramValue={channel.id}
       />
+        <ChatInput
+          name={channel.name}
+          type="channel"
+          apiUrl="/api/messages"
+          query={{
+            channelId: channel.id,
+            serverId: channel.serverId,
+          }}
+        />
+        </>
+      )}
 
-      <ChatInput
-        name={channel.name}
-        type="channel"
-        apiUrl="/api/messages"
-        query={{
-          channelId: channel.id,
-          serverId: channel.serverId,
-        }}
-      />
+      {channel.type === ChannelType.AUDIO && (
+        <MediaRoom 
+        chatId={channel.id}
+        video={false}
+        audio={true}
+        />
+      )}
+
+      {channel.type === ChannelType.VIDEO && (
+        <MediaRoom 
+        chatId={channel.id}
+        video={true}
+        audio={true}
+        />
+      )}
+
+
     </div>
   )
 }

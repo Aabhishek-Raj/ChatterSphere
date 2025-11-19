@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 interface TooltipProps {
   label: string
   children: React.ReactNode
-  side?: 'top' | 'right' | 'button' | 'left'
+  side?: 'top' | 'right' | 'bottom' | 'left'
   align?: 'start' | 'center' | 'end'
 }
 export const ToolTip = ({ label, children, side, align }: TooltipProps) => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { ToolTip } from '@/components/actions/tooltip'
+import { ToolTip } from '@/components/actions/Tooltip'
 import { UserAvatar } from '@/components/UserAvatar'
 import { cn } from '@/lib/utils'
 import { Member, Profile } from '@prisma/client'

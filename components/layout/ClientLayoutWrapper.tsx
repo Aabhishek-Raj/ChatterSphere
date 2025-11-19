@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import { NavigationSidebar } from '@/components/navigation/NavigationSidebar'
-import HeaderItem from '@/components/header/HeaderItem/page'
+import HeaderItem from '@/components/header/HeaderItem'
 
 export default function ClientLayoutWrapper({ children }: { children: ReactNode }) {
   const pathname = usePathname()

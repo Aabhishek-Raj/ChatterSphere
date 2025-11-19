@@ -1,8 +1,9 @@
 import { Menu } from 'lucide-react'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden'
+
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { NavigationSidebar } from './navigation/NavigationSidebar'
 import { ServerSidebar } from './server/ServerSidebar'
-import { CustomButton } from './ui/minors/custom-button'
 import { Button } from './ui/button'
 
 export const MobileToggle = ({ serverId }: { serverId: string }) => {
@@ -13,7 +14,12 @@ export const MobileToggle = ({ serverId }: { serverId: string }) => {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0 flex gap-0 ">
+      <SheetContent side="left" className="p-0 flex-col gap-0 ">
+        <VisuallyHidden>
+          <SheetHeader>
+            <SheetTitle>Navigation bar</SheetTitle>
+          </SheetHeader>
+        </VisuallyHidden>
         <div className="w-[72px]">
           <NavigationSidebar />
         </div>
