@@ -29,5 +29,5 @@ export async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/((?!register|login|refresh|logout|socket|messages).*)'],
+  matcher: ['/api/((?!register|login|refresh|logout|messages|direct-messages|livekit).*)'],
 }

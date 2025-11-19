@@ -1,14 +1,15 @@
 'use client'
+import { useRouter } from 'next/navigation'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { Plus, Smile } from 'lucide-react'
+import * as z from 'zod'
+import qs from 'query-string'
 
 import { axiosPrivate } from '@/app/api/axios'
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Plus, Smile } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import * as z from 'zod'
-import { EmojiPicker } from '../EmojiPicker'
-import { useRouter } from 'next/navigation'
+import { EmojiPicker } from './EmojiPicker'
 
 interface ChatInputProps {
   apiUrl: string
@@ -34,7 +35,10 @@ export const ChatInput = ({ apiUrl, query, name, type }: ChatInputProps) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const url = `${apiUrl}/?channelId=${query.channelId}&serverId=${query.serverId}`
+      const url = qs.stringifyUrl({
+        url: apiUrl,
+        query
+      })
       await axiosPrivate.post(url, values)
       form.reset()
       router.refresh()

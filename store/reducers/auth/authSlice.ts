@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '@reduxjs/toolkit/query'
 
 interface AuthState {
   token: string | null
@@ -17,8 +18,10 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       console.log(action.payload, 'action dot.payload')
       const { user, accessToken } = action.payload
+      console.log(user, accessToken, 'UT')
       state.user = user
       state.token = accessToken
+      console.log(state, "STATE")
     },
     logOut: (state) => {
       state.user = null

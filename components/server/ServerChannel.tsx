@@ -1,6 +1,6 @@
 'use client'
 
-import { ToolTip } from '@/components/actions/tooltip'
+import { ToolTip } from '@/components/actions/Tooltip'
 import { ModalType } from '@/hooks/use-modal-store'
 import { cn } from '@/lib/utils'
 import { Channel, ChannelType, MemberRole, Server } from '@prisma/client'

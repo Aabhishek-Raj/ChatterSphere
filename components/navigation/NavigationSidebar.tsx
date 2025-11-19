@@ -1,10 +1,10 @@
 import { initialProfile } from '@/app/actions/initial-profile'
-import { NavigationAction } from '../NavigattionAction'
+import { NavigationAction } from './NavigationAction'
 import { redirect } from 'next/navigation'
 import { db } from '@/lib/db'
 import { Separator } from '@/components/ui/separator'
-import { NavigationItem } from '../NavigationItem'
-import { ModeToggle } from '@/components/mode-toggle'
+import { NavigationItem } from './NavigationItem'
+import { ModeToggle } from '@/components/ModeToggle'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export const NavigationSidebar = async () => {

@@ -1,6 +1,6 @@
 'use client'
 
-import { ToolTip } from '@/components/actions/tooltip'
+import { ToolTip } from '@/components/actions/Tooltip'
 import { useModal } from '@/hooks/use-modal-store'
 import { Plus } from 'lucide-react'
 

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ModeToggle } from '@/components/mode-toggle'
+import { ModeToggle } from '@/components/ModeToggle'
 
 export const metadata: Metadata = {
   title: 'ChatterSpere',
