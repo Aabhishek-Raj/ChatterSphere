@@ -20,6 +20,8 @@ import apiService from '@/app/services/apiServices'
 import { useLoginMutation } from '@/store/reducers/auth/authApiSlice'
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '@/store/reducers/auth/authSlice'
+import { Separator } from '@/components/ui/separator'
+import Link from 'next/link'
 
 const formSchema = z.object({
   email: z.string().min(1, {
@@ -53,7 +55,7 @@ const LoginPage = () => {
       // const saveCoreUser = await apiService.get('/api/auth/registerUser', values)
       // const response = await signup(values)
       form.reset()
-      router.push('/')
+      router.push('/chat')
       router.refresh()
     } catch (error) {
       console.log(error)
@@ -61,57 +63,65 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="h-100">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="h-100 space-y-8">
-          <div className="h-100 space-y-8 px-6">
-            <div className="h-100 flex flex-col gap-6 items-center justify-center text-center">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold ">Enter your Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={loading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter you email"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="uppercase text-xs font-bold ">
-                      Enter Your Password
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={loading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                        placeholder="Enter your password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" variant="secondary" disabled={loading}>
-                Create
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex justify-center items-center mt-8"
+      >
+        <div className="flex flex-col w-[450px] gap-6">
+          <h2 className="text-4xl font-bold py-3">Log in</h2>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="uppercase text-xs font-bold w-full">Email</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={loading}
+                    className="bg-zinc-300/50 border-0 py-6 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
+                    placeholder="Enter you email"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="uppercase text-xs font-bold ">Password</FormLabel>
+                <FormControl>
+                  <Input
+                    {...field}
+                    disabled={loading}
+                    className="bg-zinc-300/50 border-0 py-6 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0"
+                    placeholder="Enter your password"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" disabled={loading} size="lg" className="cursor-pointer">
+            Log in
+          </Button>
+
+          <Separator />
+          <footer className="flex flex-col items-center text-center">
+            <p className="text-xs mb-2">Not a member yet?</p>
+            <Link href="/register">
+              <Button type="submit" size="sm" className="max-w-60 bg-blue-400 cursor-pointer">
+                Create account
               </Button>
-            </div>
-          </div>
-        </form>
-      </Form>
-    </div>
+            </Link>
+          </footer>
+        </div>
+      </form>
+    </Form>
   )
 }
 

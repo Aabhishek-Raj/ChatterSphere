@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/components/providers/theme-provider'
 import { ModalProvider } from '@/components/providers/modal-provider'
 import { NavigationSidebar } from '@/components/navigation/NavigationSidebar'
 import ClientLayoutWrapper from '@/components/layout/ClientLayoutWrapper'
+import { Suspense } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,7 +33,9 @@ export default function RootLayout({
             storageKey="chatter-theme"
           >
             <ModalProvider />
-            <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+            <Suspense fallback={<div>Loading app...</div>}>
+              <ClientLayoutWrapper>{children}</ClientLayoutWrapper>
+            </Suspense>
           </ThemeProvider>
         </body>
       </html>

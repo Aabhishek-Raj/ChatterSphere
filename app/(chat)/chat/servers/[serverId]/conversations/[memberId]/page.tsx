@@ -5,14 +5,16 @@ import { db } from '@/lib/db'
 import { redirect } from 'next/navigation'
 
 interface MembersIdPageProps {
-  params: {
+  params: Promise<{
     memberId: string
     serverId: string
-  }
+  }>
 }
 
 const MembersIdPage = async ({ params }: MembersIdPageProps) => {
   const profile = await initialProfile()
+  const paramsData = await params
+
 
   if (!profile) {
     return redirect('login')
@@ -20,7 +22,7 @@ const MembersIdPage = async ({ params }: MembersIdPageProps) => {
 
   const currentMember = await db.member.findFirst({
     where: {
-      serverId: params.serverId,
+      serverId: paramsData.serverId,
       profileId: profile.id,
     },
     include: {
@@ -32,10 +34,10 @@ const MembersIdPage = async ({ params }: MembersIdPageProps) => {
     return redirect('/')
   }
 
-  const conversation = await getOrCreateConversation(currentMember.id, params.memberId)
+  const conversation = await getOrCreateConversation(currentMember.id, paramsData.memberId)
 
   if (!conversation) {
-    return redirect(`/chat/servers/${params.serverId}`)
+    return redirect(`/chat/servers/${paramsData.serverId}`)
   }
 
   const { memberOne, memberTwo } = conversation
@@ -47,7 +49,7 @@ const MembersIdPage = async ({ params }: MembersIdPageProps) => {
       <ChatHeader
         imageUrl={otherMember.profile.imageUrl}
         name={otherMember.profile.name}
-        serverId={params.serverId}
+        serverId={paramsData.serverId}
         type="conversation"
       />
     </div>
