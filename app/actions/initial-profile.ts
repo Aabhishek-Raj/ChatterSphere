@@ -11,7 +11,7 @@ interface UserData {
 export const initialProfile = async (req?: NextApiRequest) => {
   let userData
   if (req) {
-    userData = await getUserIdFromToken(req)
+    userData = await getUserIdFromToken()
   } else {
     userData = await getUserIdFromToken()
   }
@@ -29,16 +29,13 @@ export const initialProfile = async (req?: NextApiRequest) => {
   return
 }
 
-export const getUserIdFromToken = async (req?: NextApiRequest) => {
-  let token
-  if (req) {
-    token = req.cookies['jwt']
-  } else {
-    const cookieStore = await cookies()
-    token = cookieStore.get('jwt')?.value
-  }
+export const getUserIdFromToken = async () => {
+  const cookieStore = await cookies()
+
+  const token = cookieStore.get('jwt')?.value
   const secret = new TextEncoder().encode(process.env.REFRESH_TOKEN_SECRET)
 
+  console.log(token)
   if (!token) {
     throw new Error('Token not found')
     // return null

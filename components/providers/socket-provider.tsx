@@ -1,7 +1,6 @@
 'use client'
 import { createContext, useContext, useEffect, useState } from 'react'
-
-import { io as ClientIo } from 'socket.io-client'
+import { sockets } from '@/app/socket'
 
 type SocketContextType = {
   socket: any | null
@@ -13,34 +12,47 @@ const SocketContext = createContext<SocketContextType>({
   isConnected: false,
 })
 
-export const useSocket = () => {
-  return useContext(SocketContext)
-}
+export const useSocket = () => useContext(SocketContext)
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
-  const [socket, setSocket] = useState(null)
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
-    const socketInstance = new (ClientIo as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
-      path: '/api/socket/io',
-      addTrailingSlash: false,
-    })
+    // connect manually
+    sockets.connect()
 
-    socketInstance.on('connect', () => {
+    const onConnect = () => {
       setIsConnected(true)
-    })
 
-    socketInstance.on('disconnect', () => {
+      const upgradeHandler = (transport: any) => {
+        console.log('Transport upgraded to:', transport.name)
+      }
+
+      sockets.io.engine.on('upgrade', upgradeHandler)
+
+      // cleanup for upgrade listener
+      return () => {
+        sockets.io.engine.off('upgrade', upgradeHandler)
+      }
+    }
+
+    const onDisconnect = () => {
       setIsConnected(false)
-    })
+    }
 
-    setSocket(socketInstance)
+    sockets.on('connect', onConnect)
+    sockets.on('disconnect', onDisconnect)
 
     return () => {
-      socketInstance.disconnect()
+      sockets.off('connect', onConnect)
+      sockets.off('disconnect', onDisconnect)
+      sockets.disconnect()
     }
   }, [])
 
-  return <SocketContext.Provider value={{ socket, isConnected }}>{children}</SocketContext.Provider>
+  return (
+    <SocketContext.Provider value={{ socket: sockets, isConnected }}>
+      {children}
+    </SocketContext.Provider>
+  )
 }

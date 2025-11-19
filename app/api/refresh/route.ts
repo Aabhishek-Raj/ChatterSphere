@@ -28,7 +28,7 @@ export async function GET() {
       refreshTokens: true, // Include related refresh tokens
     },
   })
-  console.log(foundUser, '[REFRESH_Route_33]')
+  console.log( '[REFRESH_Route_33]')
   console.log(process.env.REFRESH_TOKEN_SECRET)
 
   // Detected refresh token reuse!
