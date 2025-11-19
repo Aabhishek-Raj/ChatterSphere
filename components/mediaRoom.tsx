@@ -1,6 +1,14 @@
 'use client'
 
-import { LiveKitRoom, VideoConference } from '@livekit/components-react'
+import {
+  ControlBar,
+  GridLayout,
+  ParticipantTile,
+  RoomAudioRenderer,
+  useTracks,
+  RoomContext,
+} from '@livekit/components-react';
+import { Room, Track } from 'livekit-client';
 import { Loader2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -20,19 +28,34 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
 
   const [token, setToken] = useState('')
 
-  useEffect(() => {
-    if (!user) return
+  const [roomInstance] = useState(() => new Room({
+    // Optimize video quality for each participant's screen
+    adaptiveStream: true,
+    // Enable automatic audio/video quality optimization
+    dynacast: true,
+  }));
 
+   useEffect(() => {
+    let mounted = true;
     (async () => {
       try {
-        const response = await fetch(`/api/livekit?room=${chatId}&username=${user}`)
-        const data = await response.json()
-        setToken(data.token)
-      } catch (err) {
-        console.log(err)
+        const resp = await fetch(`/api/livekit?room=${chatId}&username=${user}`);
+        const data = await resp.json();
+        if (!mounted) return;
+        if (data.token) {
+          setToken(data.token);
+          await roomInstance.connect(process.env.NEXT_PUBLIC_LIVEKIT_URL as string, data.token);
+        }
+      } catch (e) {
+        console.error(e);
       }
-    })()
-  }, [user, chatId])
+    })();
+  
+    return () => {
+      mounted = false;
+      roomInstance.disconnect();
+    };
+  }, [roomInstance, chatId, user]);
 
   if (token === '') {
     return (
@@ -44,15 +67,34 @@ export const MediaRoom = ({ chatId, video, audio }: MediaRoomProps) => {
   }
 
   return (
-    <LiveKitRoom
-      data-lk-theme="default"
-      serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
-      token={token}
-      connect={true}
-      video={video}
-      audio={audio}
-    >
-      <VideoConference />
-    </LiveKitRoom>
-  )
+    <RoomContext.Provider value={roomInstance}>
+      <div data-lk-theme="default" style={{ height: '100dvh' }}>
+        {/* Your custom component with basic video conferencing functionality. */}
+        <MyVideoConference />
+        {/* The RoomAudioRenderer takes care of room-wide audio for you. */}
+        <RoomAudioRenderer />
+        {/* Controls for the user to start/stop audio, video, and screen share tracks */}
+        <ControlBar />
+      </div>
+    </RoomContext.Provider>
+  );
+}
+
+function MyVideoConference() {
+  // `useTracks` returns all camera and screen share tracks. If a user
+  // joins without a published camera track, a placeholder track is returned.
+  const tracks = useTracks(
+    [
+      { source: Track.Source.Camera, withPlaceholder: true },
+      { source: Track.Source.ScreenShare, withPlaceholder: false },
+    ],
+    { onlySubscribed: false },
+  );
+  return (
+    <GridLayout tracks={tracks} style={{ height: 'calc(100vh - var(--lk-control-bar-height))' }}>
+      {/* The GridLayout accepts zero or one child. The child is used
+      as a template to render all passed in tracks. */}
+      <ParticipantTile />
+    </GridLayout>
+  );
 }

@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import '@livekit/components-styles';
 import { Inter } from 'next/font/google'
 import './globals.css'
+
 import { cn } from '@/lib/utils'
 import ReduxWrapper from '@/store/ReduxWrapper'
 
